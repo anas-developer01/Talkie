@@ -1,4 +1,4 @@
-# ConnectVibe
+# Talkie
 React-Native ChatApp
 
 ## Screenshots
