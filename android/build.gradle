@@ -1,0 +1,51 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        buildToolsVersion = "33.0.0"
+        minSdkVersion = 26
+        compileSdkVersion = 33
+        targetSdkVersion = 34
+        googlePlayServicesAuthVersion = "19.2.0"
+        ndkVersion = "24.0.8215888"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath ('com.google.gms:google-services:4.3.3')
+        classpath("com.android.tools.build:gradle:7.2.2")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
+
+    }
+}
+
+allprojects {
+    repositories {
+        configurations.all {
+            resolutionStrategy {
+                force 'com.facebook.react:react-native:0.64.+' //select Version you used
+            }
+        }
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url("$rootDir/../node_modules/react-native/android")
+        }
+        maven {
+            // Android JSC is installed from npm
+            url("$rootDir/../node_modules/jsc-android/dist")
+        }
+        mavenCentral {
+            // We don't want to fetch react-native from Maven Central as there are
+            // older versions over there.
+            content {
+                excludeGroup "com.facebook.react"
+            }
+        }
+        google()
+        maven { url 'https://www.jitpack.io' }
+    }
+}
